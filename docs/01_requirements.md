@@ -4,7 +4,7 @@
 
 ### 1.1.1. Student Module
  **FR-ST-01 (Account Registration & Authentication):** The system shall allow students to register a new account by providing their full name, email, and password, and securely log in to access student features.
- **FR-ST-02 (Quiz Dashboard):** The system shall display a customized dashboard showing available quizzes, including quiz title, category, duration, and total number of questions.
+  **FR-ST-02 (Quiz Dashboard):** The system shall display a customized dashboard showing available quizzes, including quiz title, category, duration, and total number of questions.
  **FR-ST-03 (Quiz Attempt & Timer):** The system shall allow students to start a quiz attempt with a synchronized real-time countdown timer that automatically tracks remaining time.
  **FR-ST-04 (Question Navigation & Selection):** The system shall present multiple-choice questions one by one or in a list, allowing students to select option answers and navigate between questions freely before submitting.
  **FR-ST-05 (Auto-Submission & Scoring):** The system shall automatically record user choices, evaluate submitted answers against the answer key, calculate total scores, and auto-submit the quiz when the countdown timer expires.
