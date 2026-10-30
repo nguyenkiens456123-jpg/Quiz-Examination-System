@@ -1,63 +1,63 @@
 # 6. Data Model (Relational Database Schema)
-CREATE DATABASE IF NOT EXISTS quiz_examination_system;
-USE quiz_examination_system;
-
-CREATE TABLE users (
-    user_id INT PRIMARY KEY AUTO_INCREMENT,
+-- 1. Table Users
+CREATE TABLE Users (
+    userId INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
-    full_name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
-    role ENUM('Student','Teacher','Admin') NOT NULL,
-    status ENUM('Active','Locked') DEFAULT 'Active'
+    password VARCHAR(255) NOT NULL,
+    fullName VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    role VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE quizzes (
-    quiz_id INT PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(200) NOT NULL,
+-- 2. Table Quizzes
+CREATE TABLE Quizzes (
+    quizId INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(150) NOT NULL,
     description TEXT NULL,
-    duration_mins INT NOT NULL,
-    pass_score DECIMAL(4,2) NOT NULL,
-    created_by INT NOT NULL,
-    is_published BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (created_by) REFERENCES users(user_id)
+    durationMinutes INT NOT NULL,
+    passingScore FLOAT NOT NULL,
+    isPublished BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE questions (
-    question_id INT PRIMARY KEY AUTO_INCREMENT,
-    quiz_id INT NOT NULL,
+-- 3. Table Questions
+CREATE TABLE Questions (
+    questionId INT PRIMARY KEY AUTO_INCREMENT,
+    quizId INT NOT NULL,
     content TEXT NOT NULL,
-    points DECIMAL(4,2) DEFAULT 1.00,
-    FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id) ON DELETE CASCADE
+    questionType VARCHAR(50) NOT NULL,
+    points FLOAT NOT NULL,
+    FOREIGN KEY (quizId) REFERENCES Quizzes(quizId)
 );
 
-CREATE TABLE options (
-    option_id INT PRIMARY KEY AUTO_INCREMENT,
-    question_id INT NOT NULL,
-    option_text TEXT NOT NULL,
-    is_correct BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (question_id) REFERENCES questions(question_id) ON DELETE CASCADE
+-- 4. Table Options
+CREATE TABLE Options (
+    optionId INT PRIMARY KEY AUTO_INCREMENT,
+    questionId INT NOT NULL,
+    content TEXT NOT NULL,
+    isCorrect BOOLEAN NOT NULL DEFAULT FALSE,
+    FOREIGN KEY (questionId) REFERENCES Questions(questionId)
 );
 
-CREATE TABLE attempts (
-    attempt_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    quiz_id INT NOT NULL,
-    start_time DATETIME NOT NULL,
-    submit_time DATETIME NULL,
-    total_score DECIMAL(4,2) NULL,
-    status ENUM('In_Progress','Submitted','Timed_Out') DEFAULT 'In_Progress',
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id) ON DELETE CASCADE
+-- 5. Table Attempts
+CREATE TABLE Attempts (
+    attemptId INT PRIMARY KEY AUTO_INCREMENT,
+    userId INT NOT NULL,
+    quizId INT NOT NULL,
+    startTime DATETIME NOT NULL,
+    endTime DATETIME NULL,
+    totalScore FLOAT NULL,
+    FOREIGN KEY (userId) REFERENCES Users(userId),
+    FOREIGN KEY (quizId) REFERENCES Quizzes(quizId)
 );
 
-CREATE TABLE attempt_details (
-    detail_id INT PRIMARY KEY AUTO_INCREMENT,
-    attempt_id INT NOT NULL,
-    question_id INT NOT NULL,
-    selected_option_id INT NULL,
-    is_correct BOOLEAN NULL,
-    FOREIGN KEY (attempt_id) REFERENCES attempts(attempt_id) ON DELETE CASCADE,
-    FOREIGN KEY (question_id) REFERENCES questions(question_id) ON DELETE CASCADE,
-    FOREIGN KEY (selected_option_id) REFERENCES options(option_id) ON DELETE SET NULL
+-- 6. Table AttemptDetails
+CREATE TABLE AttemptDetails (
+    attemptDetailId INT PRIMARY KEY AUTO_INCREMENT,
+    attemptId INT NOT NULL,
+    questionId INT NOT NULL,
+    selectedOptionId INT NOT NULL,
+    isCorrect BOOLEAN NOT NULL,
+    FOREIGN KEY (attemptId) REFERENCES Attempts(attemptId),
+    FOREIGN KEY (questionId) REFERENCES Questions(questionId),
+    FOREIGN KEY (selectedOptionId) REFERENCES Options(optionId)
 );
