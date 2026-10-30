@@ -6,7 +6,7 @@
 
 | STT | Full Name | Student ID (MSSV) | Stage 1 Tasks (Analysis & Requirements) | Stage 2 Tasks (Design) | Additional Roles | Mức độ hoàn thành (Progress) |
 |---|---|---|---|---|---|---|
-| **1** | Nguyễn Sỹ Kiên (Leader) | 042207007989 | **Mục 1:** Phân tích và viết Functional & Non-functional requirements. | **Quality Controller:** Kiểm tra các bản vẽ sơ đồ (Use Case, DFD, Class, GUI) & rà soát tính chính xác của toàn bộ nội dung báo cáo. | **Group Leader:** Quản lý Repo GitHub, theo dõi tiến độ. | 🟢 50% (In Progress) |
+| **1** | Nguyễn Sỹ Kiên | 042207007989 | **Mục 1:** Phân tích và viết Functional & Non-functional requirements. | **Quality Controller:** Kiểm tra các bản vẽ sơ đồ (Use Case, DFD, Class, GUI) & rà soát tính chính xác của toàn bộ nội dung báo cáo. | **Group Leader:** Quản lý Repo GitHub, theo dõi tiến độ. | 100% |
 | **2** | Trần Thanh Quang | 075207018498 | **Mục 2:** Vẽ Use Case Diagram & Viết đặc tả Use Case chi tiết. | **Mục 6:** Thiết kế Software Architecture Design (MVC pattern). | Chịu trách nhiệm chính về kịch bản sử dụng và kiến trúc phần mềm. | 🟡 50% (In Progress) |
 | **3** | Trần Lê Đăng Khôi | 049207015682 | **Mục 3:** Vẽ Data Flow Diagram (DFD) các cấp (Context, Level 0, Level 1). | **Mục 5:** Thiết kế GUI Design (Màn hình Admin/Teacher). | Đảm bảo luồng dữ liệu DFD khớp với các thao tác trên giao diện. | 🟡 50% (In Progress) |
 | **4** | Nguyễn Ngọc Khánh Duy | 074207001513 | **Mục 4:** Vẽ Class Diagram (Xác định các lớp User, Quiz, Question, Result). | **Mục 7:** Thiết kế Database Design (Định nghĩa Bảng, PK, FK, Thuộc tính). | Chịu trách nhiệm toàn bộ về cấu trúc và thiết kế CSDL. | 🟡 50% (In Progress) |
