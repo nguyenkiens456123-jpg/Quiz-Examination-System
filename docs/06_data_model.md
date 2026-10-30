@@ -1,5 +1,5 @@
 # 6. Data Model (Relational Database Schema)
--- 1. Table User
+1. Table User
 CREATE TABLE User (
     userId INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -9,7 +9,7 @@ CREATE TABLE User (
     role VARCHAR(20) NOT NULL
 );
 
--- 2. Table Quiz
+2. Table Quiz
 CREATE TABLE Quiz (
     quizId INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(150) NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE Quiz (
     isPublished BOOLEAN NOT NULL DEFAULT FALSE
 );
 
--- 3. Table Question
+3. Table Question
 CREATE TABLE Question (
     questionId INT PRIMARY KEY AUTO_INCREMENT,
     quizId INT NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE Question (
     FOREIGN KEY (quizId) REFERENCES Quizzes(quizId)
 );
 
--- 4. Table Option
+4. Table Option
 CREATE TABLE Option (
     optionId INT PRIMARY KEY AUTO_INCREMENT,
     questionId INT NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE Option (
     FOREIGN KEY (questionId) REFERENCES Questions(questionId)
 );
 
--- 5. Table Attempt
+5. Table Attempt
 CREATE TABLE Attempt (
     attemptId INT PRIMARY KEY AUTO_INCREMENT,
     userId INT NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE Attempt (
     FOREIGN KEY (quizId) REFERENCES Quizzes(quizId)
 );
 
--- 6. Table AttemptDetail
+6. Table AttemptDetail
 CREATE TABLE AttemptDetail (
     attemptDetailId INT PRIMARY KEY AUTO_INCREMENT,
     attemptId INT NOT NULL,
