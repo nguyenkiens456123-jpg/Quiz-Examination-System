@@ -1,78 +1,66 @@
 # 6. Data Model (Relational Database Schema)
-### 1. Table `User`
-Stores user account information and role/permission information within the system.
+-- 1. Table users
+CREATE TABLE users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    full_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role ENUM('Student','Teacher','Admin') NOT NULL,
+    status ENUM('Active','Locked') DEFAULT 'Active'
+);
 
-| Column Name | Data Type | Constraints | Description |
-| :--- | :--- | :--- | :--- |
-| **userId** | INT | PRIMARY KEY, AUTO_INCREMENT | User identifier |
-| username | VARCHAR(50) | NOT NULL, UNIQUE | Username |
-| password | VARCHAR(255) | NOT NULL | Password (hash-encrypted) |
-| fullName | VARCHAR(100) | NOT NULL | Full name |
-| email | VARCHAR(100) | NOT NULL, UNIQUE | Email adress |
-| role | VARCHAR(20) | NOT NULL | Role (Ex: Student, Teacher, Admin) |
+-- 2. Table quizzes
+CREATE TABLE quizzes (
+    quiz_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(200) NOT NULL,
+    description TEXT NULLABLE,
+    duration_mins INT NOT NULL,
+    pass_score DECIMAL(4,2) NOT NULL,
+    created_by INT NOT NULL,
+    is_published BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (created_by) REFERENCES users(user_id)
+);
 
----
+-- 3. Bảng questions
+CREATE TABLE questions (
+    question_id INT PRIMARY KEY AUTO_INCREMENT,
+    quiz_id INT NOT NULL,
+    content TEXT NOT NULL,
+    points DECIMAL(4,2) DEFAULT 1.00,
+    FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id) ON DELETE CASCADE
+);
 
-### 2. Table `Quizz`
-Store exam configuration information.
+-- 4. Bảng options
+CREATE TABLE options (
+    option_id INT PRIMARY KEY AUTO_INCREMENT,
+    question_id INT NOT NULL,
+    option_text TEXT NOT NULL,
+    is_correct BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (question_id) REFERENCES questions(question_id) ON DELETE CASCADE
+);
 
-| Column Name | Data Type | Constraints | Description |
-| :--- | :--- | :--- | :--- |
-| **quizId** | INT | PRIMARY KEY, AUTO_INCREMENT | Exam code |
-| title | VARCHAR(150) | NOT NULL | Exam title |
-| description | TEXT | NULL | Detailed description of the exam |
-| durationMinutes | INT | NOT NULL | The time allotted for the test is in minutes |
-| passingScore | FLOAT | NOT NULL | Minimum passing score |
-| isPublished | BOOLEAN | NOT NULL, DEFAULT FALSE | Publication status (Open / Draft) |
+-- 5. Bảng attempts
+CREATE TABLE attempts (
+    attempt_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    quiz_id INT NOT NULL,
+    start_time DATETIME NOT NULL,
+    submit_time DATETIME NULLABLE,
+    total_score DECIMAL(4,2) NULLABLE,
+    status ENUM('In_Progress','Submitted','Timed_Out') DEFAULT 'In_Progress',
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id) ON DELETE CASCADE
+);
 
----
-
-### 3. Table `Question`
-Store a list of questions belonging to the exams.
-
-| Column Name | Data Type | Constraints | Description |
-| :--- | :--- | :--- | :--- |
-| **questionId** | INT | PRIMARY KEY, AUTO_INCREMENT | Question identifier |
-| **quizId** | INT | FOREIGN KEY (Quizzes.quizId) | Foreign key linked to the exam |
-| content | TEXT | NOT NULL | Question content |
-| questionType | VARCHAR(50) | NOT NULL | Question type |
-| points | FLOAT | NOT NULL | Points for the question |
-
----
-
-### 4. Table `Option`
-Store the options (answers) for each question.
-
-| Column Name | Data Type | Constraints | Description |
-| :--- | :--- | :--- | :--- |
-| **optionId** | INT | PRIMARY KEY, AUTO_INCREMENT | Option identifier |
-| **questionId** | INT | FOREIGN KEY (Questions.questionId) | Foreign key linked to the question |
-| content | TEXT | NOT NULL | Answer content (A, B, C, D...) |
-| isCorrect | BOOLEAN | NOT NULL, DEFAULT FALSE | Identify the correct answer (True/False) |
-
----
-
-### 5. Table `Attempt`
-Stores historical information about the times candidates have taken the test.
-
-| Column Name | Data Type | Constraints | Description |
-| :--- | :--- | :--- | :--- |
-| **attemptId** | INT | PRIMARY KEY, AUTO_INCREMENT | Exam attempt identifier |
-| **userId** | INT | FOREIGN KEY (Users.userId) | Foreign keys linked to the test-taker |
-| **quizId** | INT | FOREIGN KEY (Quizzes.quizId) | The foreign key linked to the exam was created. |
-| startTime | DATETIME | NOT NULL | The time to start the test |
-| endTime | DATETIME | NULL | Submission/End Date |
-| totalScore | FLOAT | NULL | Total score achieved in the round |
-
----
-
-### 6. Table `AttemptDetail`
-Store detailed information about the answers chosen by the test-taker for each question in each round of the exam.
-
-| Column Name | Data Type | Constraints | Description |
-| :--- | :--- | :--- | :--- |
-| **attemptDetailId** | INT | PRIMARY KEY, AUTO_INCREMENT | Answer details identifier |
-| **attemptId** | INT | FOREIGN KEY (Attempts.attemptId) | Foreign key linked to exam turn |
-| **questionId** | INT | FOREIGN KEY (Questions.questionId) | Foreign key linked to the question |
-| **selectedOptionId** | INT | FOREIGN KEY (Options.optionId) | Foreign key linking to the candidate's chosen answer. |
-| isCorrect | BOOLEAN | NOT NULL | Evaluate the student's answer as true or false|
+-- 6. Bảng attempt_details
+CREATE TABLE attempt_details (
+    detail_id INT PRIMARY KEY AUTO_INCREMENT,
+    attempt_id INT NOT NULL,
+    question_id INT NOT NULL,
+    selected_option_id INT NULLABLE,
+    is_correct BOOLEAN NULLABLE,
+    FOREIGN KEY (attempt_id) REFERENCES attempts(attempt_id) ON DELETE CASCADE,
+    FOREIGN KEY (question_id) REFERENCES questions(question_id) ON DELETE CASCADE,
+    FOREIGN KEY (selected_option_id) REFERENCES options(option_id) ON DELETE SET NULL
+);
