@@ -1,15 +1,15 @@
 # 6. Data Model (Relational Database Schema)
-### 1. Bảng `Users`
-Lưu trữ thông tin tài khoản người dùng và vai trò phân quyền trong hệ thống.
+### 1. Table `Users`
+Stores user account information and role/permission information within the system.
 
 | Column Name | Data Type | Constraints | Description |
 | :--- | :--- | :--- | :--- |
-| **userId** | INT | PRIMARY KEY, AUTO_INCREMENT | Mã định danh người dùng |
-| username | VARCHAR(50) | NOT NULL, UNIQUE | Tên đăng nhập |
-| password | VARCHAR(255) | NOT NULL | Mật khẩu (đã được mã hóa băm) |
-| fullName | VARCHAR(100) | NOT NULL | Họ và tên đầy đủ |
-| email | VARCHAR(100) | NOT NULL, UNIQUE | Địa chỉ email |
-| role | VARCHAR(20) | NOT NULL | Vai trò (Ví dụ: Student, Teacher, Admin) |
+| **userId** | INT | PRIMARY KEY, AUTO_INCREMENT | User identifier |
+| username | VARCHAR(50) | NOT NULL, UNIQUE | Username |
+| password | VARCHAR(255) | NOT NULL | Password (hash-encrypted) |
+| fullName | VARCHAR(100) | NOT NULL | Full name |
+| email | VARCHAR(100) | NOT NULL, UNIQUE | Email adress |
+| role | VARCHAR(20) | NOT NULL | Role (Ex: Student, Teacher, Admin) |
 
 ---
 
