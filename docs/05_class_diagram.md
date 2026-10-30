@@ -1,5 +1,8 @@
 # 5. Class Diagram & Entity Descriptions
 
+
+![Use Case Diagram](<E3.drawio.png>)
+
 This document outlines the structural Class Diagram for the Quiz Examination System, identifying core domain entities, their attributes, methods, relationships, and method behaviors.
 
 ---
