@@ -4,22 +4,23 @@
 ![Use Case Diagram](<Task5.drawio.png>)
 
 
+# 5. Class Diagram & System Architecture
+
 This section documents the object-oriented Class Diagram, detailing entity attributes, access modifiers, methods, structural relationships, and method behaviors based on the updated domain model.
 
 ---
 
 ## I. Structural Relationships
 
-| Class 1 | Multiplicity | Class 2 | Relationship Description |
+| Class 1 | Multiplicity | Class 2 | Meaning |
 | :--- | :--- | :--- | :--- |
-| `User` | 1 | `0...*` | `Attempt` | A user can initiate multiple exam attempts. |
-| `User` | 1 | `0...*` | `Quiz` | A user (Teacher/Admin) can create multiple quizzes. |
-| `Quiz` | 1 | `0...*` | `Attempt` | A quiz can have multiple exam attempts. |
-| `Quiz` | 1 | `1...*` | `Question` | A quiz contains one or more questions. |
-| `Question` | 1 | `1...*` | `Option` | A question has one or more answer options. |
-| `Attempt` | 1 | `1...*` | `AttemptDetail` | An attempt consists of multiple detailed responses. |
-| `Question` | 1 | `0...*` | `AttemptDetail` | A question is referenced in multiple attempt details. |
-| `Option` | `0...1` | `0...*` | `AttemptDetail` | An option can be selected in attempt details. |
+| `User` | `1..0...*` | `Attempt` | A user can make many attempts or not do it[cite: 8] |
+| `Quiz` | `1..0...*` | `Attempt` | A quiz can have many attempts or not[cite: 8] |
+| `Quiz` | `1..1...*` | `Question` | A quiz contains questions[cite: 8] |
+| `Question` | `1..1...*` | `Option` | Composition: a question has 1 or more options[cite: 8] |
+| `Attempt` | `1..1...*` | `AttemptDetail` | An attempt consists of many attempt details[cite: 8] |
+| `Question` | `1..0...*` | `AttemptDetail` | Question referenced in attempt details[cite: 8] |
+| `Option` | `0...1..0...*` | `AttemptDetail` | Option chosen in attempt details[cite: 8] |
 
 ---
 
