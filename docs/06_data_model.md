@@ -1,6 +1,6 @@
 # 6. Data Model (Relational Database Schema)
--- 1. Table Users
-CREATE TABLE Users (
+-- 1. Table User
+CREATE TABLE User (
     userId INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
@@ -9,8 +9,8 @@ CREATE TABLE Users (
     role VARCHAR(20) NOT NULL
 );
 
--- 2. Table Quizzes
-CREATE TABLE Quizzes (
+-- 2. Table Quiz
+CREATE TABLE Quiz (
     quizId INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(150) NOT NULL,
     description TEXT NULL,
@@ -19,8 +19,8 @@ CREATE TABLE Quizzes (
     isPublished BOOLEAN NOT NULL DEFAULT FALSE
 );
 
--- 3. Table Questions
-CREATE TABLE Questions (
+-- 3. Table Question
+CREATE TABLE Question (
     questionId INT PRIMARY KEY AUTO_INCREMENT,
     quizId INT NOT NULL,
     content TEXT NOT NULL,
@@ -29,8 +29,8 @@ CREATE TABLE Questions (
     FOREIGN KEY (quizId) REFERENCES Quizzes(quizId)
 );
 
--- 4. Table Options
-CREATE TABLE Options (
+-- 4. Table Option
+CREATE TABLE Option (
     optionId INT PRIMARY KEY AUTO_INCREMENT,
     questionId INT NOT NULL,
     content TEXT NOT NULL,
@@ -38,8 +38,8 @@ CREATE TABLE Options (
     FOREIGN KEY (questionId) REFERENCES Questions(questionId)
 );
 
--- 5. Table Attempts
-CREATE TABLE Attempts (
+-- 5. Table Attempt
+CREATE TABLE Attempt (
     attemptId INT PRIMARY KEY AUTO_INCREMENT,
     userId INT NOT NULL,
     quizId INT NOT NULL,
@@ -50,8 +50,8 @@ CREATE TABLE Attempts (
     FOREIGN KEY (quizId) REFERENCES Quizzes(quizId)
 );
 
--- 6. Table AttemptDetails
-CREATE TABLE AttemptDetails (
+-- 6. Table AttemptDetail
+CREATE TABLE AttemptDetail (
     attemptDetailId INT PRIMARY KEY AUTO_INCREMENT,
     attemptId INT NOT NULL,
     questionId INT NOT NULL,
