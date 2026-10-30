@@ -3,112 +3,119 @@
 
 ![Use Case Diagram](<Task5.drawio.png>)
 
-This document outlines the structural Class Diagram for the Quiz Examination System, identifying core domain entities, their attributes, methods, relationships, and method behaviors.
+
+This section documents the object-oriented Class Diagram, detailing entity attributes, access modifiers, methods, structural relationships, and method behaviors based on the updated domain model.
 
 ---
 
-## 1. Class Details (Attributes and Methods)
+## I. Structural Relationships
 
-### **User**
-Base class for system users; holds authentication credentials and account roles.
+| Class 1 | Multiplicity | Class 2 | Relationship Description |
+| :--- | :--- | :--- | :--- |
+| `User` | 1 | `0...*` | `Attempt` | A user can initiate multiple exam attempts. |
+| `User` | 1 | `0...*` | `Quiz` | A user (Teacher/Admin) can create multiple quizzes. |
+| `Quiz` | 1 | `0...*` | `Attempt` | A quiz can have multiple exam attempts. |
+| `Quiz` | 1 | `1...*` | `Question` | A quiz contains one or more questions. |
+| `Question` | 1 | `1...*` | `Option` | A question has one or more answer options. |
+| `Attempt` | 1 | `1...*` | `AttemptDetail` | An attempt consists of multiple detailed responses. |
+| `Question` | 1 | `0...*` | `AttemptDetail` | A question is referenced in multiple attempt details. |
+| `Option` | `0...1` | `0...*` | `AttemptDetail` | An option can be selected in attempt details. |
+
+---
+
+## II. Class Details (Attributes & Methods)
+
+### 1. User
+Base class representing system accounts (Students, Teachers, Admins).
 * **Attributes:**
-  * `- userId: int`
+  * `- userID: Int`
   * `- username: String`
   * `- password: String`
-  * `- fullName: String`
+  * `- fullname: String`
   * `- email: String`
   * `- role: String`
 * **Methods:**
-  * `+ login(): boolean`
-  * `+ logout(): void`
+  * `+ login(): Boolean`
+  * `+ logout(): Void`
+  * `+ updateProfile(): Void`
 
-### **Quiz**
-Manages test configuration, duration, passing criteria, and publication status.
+### 2. Quiz
+Manages quiz configuration, duration settings, passing score thresholds, and publication.
 * **Attributes:**
-  * `- quizId: int`
+  * `- quizID: Int`
   * `- title: String`
-  * `- description: String`
-  * `- durationMinutes: int`
-  * `- passingScore: float`
-  * `- isPublished: boolean`
+  * `- durationMins: Int`
+  * `- passScore: Float`
+  * `- isPublished: Boolean`
 * **Methods:**
-  * `+ createQuiz(): void`
-  * `+ publishQuiz(): void`
+  * `+ createQuiz(): Void`
+  * `+ publishQuiz(): Void`
+  * `+ assignClass(): Void`
 
-### **Question**
-Holds question content, types, points, and belongs to a specific quiz.
+### 3. Question
+Holds question content, assigned points, and parent quiz reference.
 * **Attributes:**
-  * `- questionId: int`
-  * `- quizId: int`
+  * `- questionID: Int`
+  * `- quizID: Int`
   * `- content: String`
-  * `- questionType: String`
-  * `- points: float`
+  * `- points: Float`
 * **Methods:**
-  * `+ addQuestion(): void`
-  * `+ validateQuestion(): boolean`
+  * `+ addOption(): Void`
+  * `+ validateQuestion(): Void`
 
-### **Option**
-Stores choices/answers for a specific question and indicates whether it is correct.
+### 4. Option
+Stores choice content and correct flags associated with a specific question.
 * **Attributes:**
-  * `- optionId: int`
-  * `- questionId: int`
-  * `- content: String`
-  * `- isCorrect: boolean`
+  * `- optionID: Int`
+  * `- questionID: Int`
+  * `- optionText: String`
+  * `- isCorrect: Boolean`
 * **Methods:**
   * `+ getOptionDetails(): String`
 
-### **Attempt**
-Tracks user examination sessions, timing, and total scores.
+### 5. Attempt
+Tracks individual student exam sessions, timers, and total score calculations.
 * **Attributes:**
-  * `- attemptId: int`
-  * `- userId: int`
-  * `- quizId: int`
+  * `- attemptID: Int`
+  * `- userID: Int`
+  * `- quizID: Int`
   * `- startTime: DateTime`
-  * `- endTime: DateTime`
-  * `- totalScore: float`
+  * `- submitTime: DateTime`
+  * `- totalScore: Float`
 * **Methods:**
-  * `+ startAttempt(): void`
-  * `+ submitAttempt(): void`
-  * `+ calculateScore(): float`
+  * `+ startAttempt(): Void`
+  * `+ autoSave(): Void`
+  * `+ submitAttempt(): Void`
+  * `+ calculateScore(): Float`
 
-### **AttemptDetail**
-Stores individual answers selected by the user for each question during an examination attempt.
+### 6. AttemptDetail
+Records the selected option and correctness flag for each question answered during an attempt.
 * **Attributes:**
-  * `- attemptDetailId: int`
-  * `- attemptId: int`
-  * `- questionId: int`
-  * `- selectedOptionId: int`
-  * `- isCorrect: boolean`
+  * `- detailID: Int`
+  * `- attemptID: Int`
+  * `- questionID: Int`
+  * `- selectedOptionID: Int`
+  * `- isCorrect: Boolean`
 * **Methods:**
-  * `+ saveAnswer(): void`
+  * `+ saveSelection(): Void`
 
 ---
 
-## 2. Relationships Mapping
+## III. Behavior of Main Methods
 
-| Class 1 | Multiplicity | Class 2 | Meaning |
-| :--- | :--- | :--- | :--- |
-| **User** | 1 .. 0..\* | **Attempt** | A user can make many attempts or not do it. |
-| **Quiz** | 1 .. 0..\* | **Attempt** | A quiz can have many attempts or not. |
-| **Quiz** | 1 .. 1..\* | **Question** | A quiz contains questions. |
-| **Question** | 1 .. 1..\* | **Option** | Composition: a question has 1 or more options. |
-| **Attempt** | 1 .. 1..\* | **AttemptDetail** | An attempt consists of many attempt details. |
-| **Question** | 1 .. 0..\* | **AttemptDetail** | Question referenced in attempt details. |
-| **Option** | 0..1 .. 0..\* | **AttemptDetail** | Option chosen in attempt details. |
-
----
-
-## 3. Behavior of Main Methods
-
-| Method | Behavior |
+| Method | Detailed Behavior Description |
 | :--- | :--- |
-| **User.login(username, password)** | Verifies credentials, counts failed login attempts, creates a session; throws an error when the account is locked. |
-| **User.logout()** | Terminates the active user session and clears authentication tokens. |
-| **Quiz.createQuiz()** | Validates the configuration parameters and creates a new Quiz with a draft status. |
-| **Quiz.publishQuiz()** | Checks if the quiz contains questions and valid criteria, then changes its status to published. |
-| **Question.validateQuestion()** | Verifies that the question content and its associated options are correctly configured. |
-| **Option.getOptionDetails()** | Retrieves the content and correctness status of a specific option choice. |
-| **Attempt.startAttempt()** | Checks quiz availability and remaining attempts, then creates a new Attempt record with a start timestamp. |
-| **Attempt.submitAttempt()** | Sets the attempt status to submitted, triggers score calculation, and saves the final results. |
-| **Attempt.calculateScore()** | Evaluates student answers against correct options, sums up the points, and returns the total score. |
-| **AttemptDetail.saveAnswer()** | Creates or updates the selected option answer for a specific question within the attempt. |
+| `User.login()` | Validates user credentials, creates a session token, and grants role-based access upon successful authentication. |
+| `User.logout()` | Invalidates the active session token and clears user authentication state. |
+| `User.updateProfile()` | Updates account information such as full name or password. |
+| `Quiz.createQuiz()` | Validates configuration parameters and initializes a new quiz in draft status. |
+| `Quiz.publishQuiz()` | Verifies that the quiz contains valid questions and toggles its availability for students (`isPublished = true`). |
+| `Quiz.assignClass()` | Links a published quiz to specific student classes or groups. |
+| `Question.addOption()` | Appends a new choice option to the target question. |
+| `Question.validateQuestion()` | Ensures the question contains valid content, assigned points, and at least one correct option key. |
+| `Option.getOptionDetails()` | Returns the option text and its correctness indicator. |
+| `Attempt.startAttempt()` | Verifies quiz availability, creates an active attempt session, and records `startTime`. |
+| `Attempt.autoSave()` | Periodically saves the student's selected choices to prevent data loss. |
+| `Attempt.submitAttempt()` | Sets `submitTime`, locks further editing, and triggers final score calculation. |
+| `Attempt.calculateScore()` | Compares selected options against correct keys, sums up earned points, and returns `totalScore`. |
+| `AttemptDetail.saveSelection()` | Records or updates the student's selected option (`selectedOptionID`) for a specific question. |
