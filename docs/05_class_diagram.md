@@ -4,7 +4,6 @@
 ![Use Case Diagram](<Task5.drawio.png>)
 
 
-# 5. Class Diagram & System Architecture
 
 This section documents the object-oriented Class Diagram, detailing entity attributes, access modifiers, methods, structural relationships, and method behaviors based on the updated domain model.
 
