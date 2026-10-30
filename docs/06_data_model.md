@@ -1,7 +1,4 @@
 # 6. Data Model (Relational Database Schema)
-
-Tài liệu này ánh xạ từ Sơ đồ lớp (Class Diagram) của hệ thống thi trắc nghiệm thành các bảng cơ sở dữ liệu quan hệ, xác định rõ ràng Khóa chính (PK), Khóa ngoại (FK), kiểu dữ liệu và các ràng buộc toàn vẹn.
-
 ### 1. Bảng `Users`
 Lưu trữ thông tin tài khoản người dùng và vai trò phân quyền trong hệ thống.
 
