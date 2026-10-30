@@ -5,101 +5,45 @@
 
 
 
-This section documents the object-oriented Class Diagram, detailing entity attributes, access modifiers, methods, structural relationships, and method behaviors based on the updated domain model.
-
----
-
 ## I. Structural Relationships
 
 | Class 1 | Multiplicity | Class 2 | Meaning |
 | :--- | :--- | :--- | :--- |
-| `User` | `1..0...*` | `Attempt` | A user can make many attempts or not do it |
-| `Quiz` | `1..0...*` | `Attempt` | A quiz can have many attempts or not |
-| `Quiz` | `1..1...*` | `Question` | A quiz contains questions |
-| `Question` | `1..1...*` | `Option` | Composition: a question has 1 or more options |
-| `Attempt` | `1..1...*` | `AttemptDetail` | An attempt consists of many attempt details |
-| `Question` | `1..0...*` | `AttemptDetail` | Question referenced in attempt details |
-| `Option` | `0...1..0...*` | `AttemptDetail` | Option chosen in attempt details |
+| `User` | `1..0...*` | `Attempt` | A user can make many attempts or not do it[cite: 9] |
+| `Quiz` | `1..0...*` | `Attempt` | A quiz can have many attempts or not[cite: 9] |
+| `Quiz` | `1..1...*` | `Question` | A quiz contains questions[cite: 9] |
+| `Question` | `1..1...*` | `Option` | Composition: a question has 1 or more options[cite: 9] |
+| `Attempt` | `1..1...*` | `AttemptDetail` | An attempt consists of many attempt details[cite: 9] |
+| `Question` | `1..0...*` | `AttemptDetail` | Question referenced in attempt details[cite: 9] |
+| `Option` | `0...1..0...*` | `AttemptDetail` | Option chosen in attempt details[cite: 9] |
 
 ---
 
 ## II. Class Details (Attributes & Methods)
 
 ### 1. User
-Base class representing system accounts (Students, Teachers, Admins).
-* **Attributes:**
-  * `- userID: Int`
-  * `- username: String`
-  * `- password: String`
-  * `- fullname: String`
-  * `- email: String`
-  * `- role: String`
-* **Methods:**
-  * `+ login(): Boolean`
-  * `+ logout(): Void`
-  * `+ updateProfile(): Void`
+* **Attributes:** `- userID: Int`, `- username: String`, `- password: String`, `- fullname: String`, `- email: String`, `- role: String`[cite: 9]
+* **Methods:** `+ login(): Boolean`, `+ logout(): Void`, `+ updateProfile(): Void`[cite: 9]
 
 ### 2. Quiz
-Manages quiz configuration, duration settings, passing score thresholds, and publication.
-* **Attributes:**
-  * `- quizID: Int`
-  * `- title: String`
-  * `- durationMins: Int`
-  * `- passScore: Float`
-  * `- isPublished: Boolean`
-* **Methods:**
-  * `+ createQuiz(): Void`
-  * `+ publishQuiz(): Void`
-  * `+ assignClass(): Void`
+* **Attributes:** `- quizID: Int`, `- title: String`, `- durationMins: Int`, `- passScore: Float`, `- isPublished: Boolean`[cite: 9]
+* **Methods:** `+ createQuiz(): Void`, `+ publishQuiz(): Void`, `+ assignClass(): Void`[cite: 9]
 
 ### 3. Question
-Holds question content, assigned points, and parent quiz reference.
-* **Attributes:**
-  * `- questionID: Int`
-  * `- quizID: Int`
-  * `- content: String`
-  * `- points: Float`
-* **Methods:**
-  * `+ addOption(): Void`
-  * `+ validateQuestion(): Void`
+* **Attributes:** `- questionID: Int`, `- quizID: Int`, `- content: String`, `- points: Float`[cite: 9]
+* **Methods:** `+ addOption(): Void`, `+ validateQuestion(): Void`[cite: 9]
 
 ### 4. Option
-Stores choice content and correct flags associated with a specific question.
-* **Attributes:**
-  * `- optionID: Int`
-  * `- questionID: Int`
-  * `- optionText: String`
-  * `- isCorrect: Boolean`
-* **Methods:**
-  * `+ getOptionDetails(): String`
+* **Attributes:** `- optionID: Int`, `- questionID: Int`, `- optionText: String`, `- isCorrect: Boolean`[cite: 9]
+* **Methods:** `+ getOptionDetails(): String`[cite: 9]
 
 ### 5. Attempt
-Tracks individual student exam sessions, timers, and total score calculations.
-* **Attributes:**
-  * `- attemptID: Int`
-  * `- userID: Int`
-  * `- quizID: Int`
-  * `- startTime: DateTime`
-  * `- submitTime: DateTime`
-  * `- totalScore: Float`
-* **Methods:**
-  * `+ startAttempt(): Void`
-  * `+ autoSave(): Void`
-  * `+ submitAttempt(): Void`
-  * `+ calculateScore(): Float`
+* **Attributes:** `- attemptID: Int`, `- userID: Int`, `- quizID: Int`, `- startTime: DateTime`, `- submitTime: DateTime`, `- totalScore: Float`[cite: 9]
+* **Methods:** `+ startAttempt(): Void`, `+ autoSave(): Void`, `+ submitAttempt(): Void`, `+ calculateScore(): Float`[cite: 9]
 
 ### 6. AttemptDetail
-Records the selected option and correctness flag for each question answered during an attempt.
-* **Attributes:**
-  * `- detailID: Int`
-  * `- attemptID: Int`
-  * `- questionID: Int`
-  * `- selectedOptionID: Int`
-  * `- isCorrect: Boolean`
-* **Methods:**
-  * `+ saveSelection(): Void`
-
----
+* **Attributes:** `- detailID: Int`, `- attemptID: Int`, `- questionID: Int`, `- selectedOptionID: Int`, `- isCorrect: Boolean`[cite: 9]
+* **Methods:** `+ saveSelection(): Void`[cite: 9]
 
 ## III. Behavior of Main Methods
 
