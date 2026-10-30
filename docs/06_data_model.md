@@ -22,7 +22,7 @@ CREATE TABLE quizzes (
     FOREIGN KEY (created_by) REFERENCES users(user_id)
 );
 
--- 3. Bảng questions
+-- 3. Table questions
 CREATE TABLE questions (
     question_id INT PRIMARY KEY AUTO_INCREMENT,
     quiz_id INT NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE questions (
     FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id) ON DELETE CASCADE
 );
 
--- 4. Bảng options
+-- 4. Table options
 CREATE TABLE options (
     option_id INT PRIMARY KEY AUTO_INCREMENT,
     question_id INT NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE options (
     FOREIGN KEY (question_id) REFERENCES questions(question_id) ON DELETE CASCADE
 );
 
--- 5. Bảng attempts
+-- 5. Table attempts
 CREATE TABLE attempts (
     attempt_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE attempts (
     FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id) ON DELETE CASCADE
 );
 
--- 6. Bảng attempt_details
+-- 6. Table attempt_details
 CREATE TABLE attempt_details (
     detail_id INT PRIMARY KEY AUTO_INCREMENT,
     attempt_id INT NOT NULL,
