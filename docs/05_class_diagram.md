@@ -13,13 +13,13 @@ This section documents the object-oriented Class Diagram, detailing entity attri
 
 | Class 1 | Multiplicity | Class 2 | Meaning |
 | :--- | :--- | :--- | :--- |
-| `User` | `1..0...*` | `Attempt` | A user can make many attempts or not do it[cite: 8] |
-| `Quiz` | `1..0...*` | `Attempt` | A quiz can have many attempts or not[cite: 8] |
-| `Quiz` | `1..1...*` | `Question` | A quiz contains questions[cite: 8] |
-| `Question` | `1..1...*` | `Option` | Composition: a question has 1 or more options[cite: 8] |
-| `Attempt` | `1..1...*` | `AttemptDetail` | An attempt consists of many attempt details[cite: 8] |
-| `Question` | `1..0...*` | `AttemptDetail` | Question referenced in attempt details[cite: 8] |
-| `Option` | `0...1..0...*` | `AttemptDetail` | Option chosen in attempt details[cite: 8] |
+| `User` | `1..0...*` | `Attempt` | A user can make many attempts or not do it |
+| `Quiz` | `1..0...*` | `Attempt` | A quiz can have many attempts or not |
+| `Quiz` | `1..1...*` | `Question` | A quiz contains questions |
+| `Question` | `1..1...*` | `Option` | Composition: a question has 1 or more options |
+| `Attempt` | `1..1...*` | `AttemptDetail` | An attempt consists of many attempt details |
+| `Question` | `1..0...*` | `AttemptDetail` | Question referenced in attempt details |
+| `Option` | `0...1..0...*` | `AttemptDetail` | Option chosen in attempt details |
 
 ---
 
