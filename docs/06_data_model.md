@@ -1,5 +1,5 @@
 # 6. Data Model (Relational Database Schema)
-### 1. Table `Users`
+### 1. Table `User`
 Stores user account information and role/permission information within the system.
 
 | Column Name | Data Type | Constraints | Description |
@@ -13,7 +13,7 @@ Stores user account information and role/permission information within the syste
 
 ---
 
-### 2. Table `Quizzes`
+### 2. Table `Quizz`
 Store exam configuration information.
 
 | Column Name | Data Type | Constraints | Description |
@@ -27,7 +27,7 @@ Store exam configuration information.
 
 ---
 
-### 3. Table `Questions`
+### 3. Table `Question`
 Store a list of questions belonging to the exams.
 
 | Column Name | Data Type | Constraints | Description |
@@ -40,7 +40,7 @@ Store a list of questions belonging to the exams.
 
 ---
 
-### 4. Table `Options`
+### 4. Table `Option`
 Store the options (answers) for each question.
 
 | Column Name | Data Type | Constraints | Description |
@@ -52,7 +52,7 @@ Store the options (answers) for each question.
 
 ---
 
-### 5. Table `Attempts`
+### 5. Table `Attempt`
 Stores historical information about the times candidates have taken the test.
 
 | Column Name | Data Type | Constraints | Description |
@@ -66,7 +66,7 @@ Stores historical information about the times candidates have taken the test.
 
 ---
 
-### 6. Table `AttemptDetails`
+### 6. Table `AttemptDetail`
 Store detailed information about the answers chosen by the test-taker for each question in each round of the exam.
 
 | Column Name | Data Type | Constraints | Description |
