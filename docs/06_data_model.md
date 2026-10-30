@@ -1,6 +1,6 @@
 # 6. Data Model (Relational Database Schema)
--- 1. Table user
-CREATE TABLE user (
+-- 1. Table users
+CREATE TABLE users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
     full_name VARCHAR(100) NOT NULL,
@@ -10,8 +10,8 @@ CREATE TABLE user (
     status ENUM('Active','Locked') DEFAULT 'Active'
 );
 
--- 2. Table quiz
-CREATE TABLE quiz (
+-- 2. Table quizzes
+CREATE TABLE quizzes (
     quiz_id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(200) NOT NULL,
     description TEXT NULLABLE,
@@ -22,8 +22,8 @@ CREATE TABLE quiz (
     FOREIGN KEY (created_by) REFERENCES users(user_id)
 );
 
--- 3. Table question
-CREATE TABLE question (
+-- 3. Table questions
+CREATE TABLE questions (
     question_id INT PRIMARY KEY AUTO_INCREMENT,
     quiz_id INT NOT NULL,
     content TEXT NOT NULL,
@@ -31,8 +31,8 @@ CREATE TABLE question (
     FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id) ON DELETE CASCADE
 );
 
--- 4. Table option
-CREATE TABLE option (
+-- 4. Table options
+CREATE TABLE options (
     option_id INT PRIMARY KEY AUTO_INCREMENT,
     question_id INT NOT NULL,
     option_text TEXT NOT NULL,
@@ -40,8 +40,8 @@ CREATE TABLE option (
     FOREIGN KEY (question_id) REFERENCES questions(question_id) ON DELETE CASCADE
 );
 
--- 5. Table attempt
-CREATE TABLE attempt (
+-- 5. Table attempts
+CREATE TABLE attempts (
     attempt_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     quiz_id INT NOT NULL,
@@ -53,8 +53,8 @@ CREATE TABLE attempt (
     FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id) ON DELETE CASCADE
 );
 
--- 6. Table attempt_detail
-CREATE TABLE attempt_detail (
+-- 6. Table attempt_details
+CREATE TABLE attempt_details (
     detail_id INT PRIMARY KEY AUTO_INCREMENT,
     attempt_id INT NOT NULL,
     question_id INT NOT NULL,
